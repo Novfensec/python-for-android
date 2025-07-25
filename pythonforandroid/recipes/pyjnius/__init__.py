@@ -6,15 +6,14 @@ from os.path import join
 
 
 class PyjniusRecipe(PyProjectRecipe):
-    version = '1.6.1'
-    url = 'https://github.com/kivy/pyjnius/archive/{version}.zip'
+    version = '0b06b8e4675bdeca1e17a1e38563122a72b6612c'
+    url = 'https://github.com/kivy/pyjnius/archive/0b06b8e4675bdeca1e17a1e38563122a72b6612c.zip'
     name = 'pyjnius'
     depends = [('genericndkbuild', 'sdl2', 'sdl3'), 'six']
     site_packages_name = 'jnius'
-
+    hostpython_prerequisites = ["Cython~=3.1.2"]
     patches = [
         "use_cython.patch",
-        "cython_version_pin.patch",
         ('genericndkbuild_jnienv_getter.patch', will_build('genericndkbuild')),
         ('sdl3_jnienv_getter.patch', will_build('sdl3')),
     ]

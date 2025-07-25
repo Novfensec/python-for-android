@@ -1,8 +1,10 @@
+from multiprocessing import cpu_count
 from os.path import exists, join
+
+import sh
 
 from pythonforandroid.recipe import BootstrapNDKRecipe
 from pythonforandroid.toolchain import current_directory, shprint
-import sh
 
 
 class LibSDL2Recipe(BootstrapNDKRecipe):
@@ -34,6 +36,8 @@ class LibSDL2Recipe(BootstrapNDKRecipe):
             shprint(
                 sh.Command(join(self.ctx.ndk_dir, "ndk-build")),
                 "V=1",
+                "-j",
+                str(cpu_count()),
                 "NDK_DEBUG=" + ("1" if self.ctx.build_as_debuggable else "0"),
                 _env=env
             )
