@@ -1,7 +1,7 @@
-diff --git a/a/vispy/util/dpi/__init__.py b/b/vispy/util/dpi/__init__.py
+diff --git a/vispy/util/dpi/__init__.py b/vispy/util/dpi/__init__.py
 index b492ca0..dd05c6a 100755
---- a/a/vispy/util/dpi/__init__.py
-+++ b/b/vispy/util/dpi/__init__.py
+--- a/vispy/util/dpi/__init__.py
++++ b/vispy/util/dpi/__init__.py
 @@ -5,7 +5,7 @@
  # -----------------------------------------------------------------------------
  """The dpi module enables querying the OS for the screen DPI."""
