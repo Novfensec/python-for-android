@@ -1,5 +1,5 @@
 diff --git a/vispy/util/fonts/_freetype.py b/vispy/util/fonts/_freetype.py
-index 3b33d0b..229d559 100644
+index 77ad458..d0e104b 100755
 --- a/vispy/util/fonts/_freetype.py
 +++ b/vispy/util/fonts/_freetype.py
 @@ -12,12 +12,12 @@ import numpy as np
@@ -21,11 +21,11 @@ index 3b33d0b..229d559 100644
  
  _font_dict = {}
  
-@@ -41,6 +41,7 @@ def _load_font(face, bold, italic):
+@@ -44,6 +44,7 @@ def _load_font(face, bold, italic):
  
  def _load_glyph(f, char, glyphs_dict):
      """Load glyph from font into dict"""
 +    return
-     from ...ext.freetype import (FT_LOAD_RENDER, FT_LOAD_NO_HINTING,
-                                  FT_LOAD_NO_AUTOHINT)
+     from freetype import (FT_LOAD_RENDER, FT_LOAD_NO_HINTING,
+                           FT_LOAD_NO_AUTOHINT)
      flags = FT_LOAD_RENDER | FT_LOAD_NO_HINTING | FT_LOAD_NO_AUTOHINT
