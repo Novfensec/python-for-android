@@ -1,0 +1,26 @@
+diff --git a/a/vispy/util/dpi/__init__.py b/b/vispy/util/dpi/__init__.py
+index b492ca0..dd05c6a 100755
+--- a/a/vispy/util/dpi/__init__.py
++++ b/b/vispy/util/dpi/__init__.py
+@@ -5,7 +5,7 @@
+ # -----------------------------------------------------------------------------
+ """The dpi module enables querying the OS for the screen DPI."""
+ 
+-import sys
++import os, sys
+ 
+ __all__ = ['get_dpi']
+ 
+@@ -15,5 +15,11 @@ elif sys.platform == 'darwin':
+     from ._quartz import get_dpi
+ elif sys.platform.startswith('win'):
+     from ._win32 import get_dpi  # noqa, analysis:ignore
++elif "ANDROID_ARGUMENT" in os.environ:
++    from android import mActivity
++
++    def get_dpi(*args):
++        return mActivity.getResources().getDisplayMetrics().densityDpi
++
+ else:
+     raise NotImplementedError('unknown system %s' % sys.platform)
+\ No newline at end of file

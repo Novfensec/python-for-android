@@ -13,7 +13,8 @@ class VispyRecipe(PyProjectRecipe):
     hostpython_prerequisites = ['setuptools>=64', 'wheel', 'Cython', 'numpy', 'build']
     patches = ['disable_freetype.patch',
                'disable_font_triage.patch',
-               'vispy_egl_backend.patch']
+               'vispy_egl_backend.patch',
+               'vispy_dpi.patch']
 
 
 recipe = VispyRecipe()
