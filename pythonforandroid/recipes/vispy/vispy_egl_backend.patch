@@ -1,5 +1,5 @@
 diff --git a/vispy/app/_default_app.py b/vispy/app/_default_app.py
-index cba82ac..a55cfe0 100755
+index cba82ac..7f4e66a 100755
 --- a/vispy/app/_default_app.py
 +++ b/vispy/app/_default_app.py
 @@ -43,6 +43,11 @@ def use_app(backend_name=None, call_reuse=True):
@@ -7,8 +7,8 @@ index cba82ac..a55cfe0 100755
              return default_app  # Current backend matches backend_name
  
 +    if backend_name is None:
-+        import os, sys
-+        if sys.platform.startswith("linux") and "ANDROID_ARGUMENT" in os.environ:
++        import os
++        if "ANDROID_ARGUMENT" in os.environ:
 +            backend_name = "egl"
 +
      # Create default app
