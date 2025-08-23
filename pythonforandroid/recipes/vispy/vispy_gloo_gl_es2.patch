@@ -1,0 +1,13 @@
+diff --git a/vispy/gloo/gl/es2.py b/vispy/gloo/gl/es2.py
+index 9ee2e11..5a02cd7 100755
+--- a/vispy/gloo/gl/es2.py
++++ b/vispy/gloo/gl/es2.py
+@@ -34,7 +34,7 @@ elif sys.platform.startswith('win'):
+     fname = dirname + r'\libGLESv2.dll'
+     _lib = ctypes.windll.LoadLibrary(fname)
+ 
+-elif sys.platform.startswith('linux'):
++elif sys.platform.startswith('linux') or "ANDROID_ARGUMENT" in os.environ:
+     es2_file = None
+     # Load from env
+     if 'ES2_LIBRARY' in os.environ:  # todo: is this the correct name?

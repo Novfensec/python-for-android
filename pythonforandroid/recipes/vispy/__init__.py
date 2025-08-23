@@ -14,7 +14,8 @@ class VispyRecipe(PyProjectRecipe):
     patches = ['disable_freetype.patch',
                'disable_font_triage.patch',
                'vispy_egl_backend.patch',
-               'vispy_dpi.patch']
+               'vispy_dpi.patch',
+               'vispy_gloo_gl_es2.patch',]
 
 
 recipe = VispyRecipe()
