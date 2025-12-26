@@ -142,7 +142,7 @@
     {% for a in args.add_activity  %}
     <activity android:name="{{ a }}"></activity>
     {% endfor %}
-    <activity android:name="org.kvdeveloper.client.ClientActivity"
+    <activity android:name="org.cs50.client.ClientActivity"
               android:process=":client_process"
               android:launchMode="singleTask"
               android:exported="false"
