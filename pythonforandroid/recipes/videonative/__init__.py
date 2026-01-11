@@ -1,4 +1,3 @@
-# your_app/pythonforandroid/recipes/libvideo/__init__.py
 from pythonforandroid.recipe import Recipe
 from pythonforandroid.logger import shprint
 from pythonforandroid.toolchain import current_directory
@@ -10,7 +9,6 @@ class VideoNativeRecipe(Recipe):
     version = '0.1'
     src_filename = 'libvideo.c'
     # We compile a single C file into a shared library
-    # No Python sources to install; we’ll load via ctypes.
     depends = ['ffmpeg']  # ensure ffmpeg recipe is built before this
     # If you use a custom ffmpeg recipe name, update this dependency.
 
