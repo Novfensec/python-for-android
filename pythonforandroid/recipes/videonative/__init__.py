@@ -46,7 +46,9 @@ class VideoNativeRecipe(Recipe):
                     '-o', out,
                     src,
                     *env['CFLAGS'].split(),
-                    *env['LDFLAGS'].split + *env['LIBS'].split())
+                    *env['LDFLAGS'].split(),
+                    *env['LIBS'].split(),
+            )
 
         # Install into libs dir so it’s packaged with the APK
         dest_dir = self.ctx.get_libs_dir(arch)
