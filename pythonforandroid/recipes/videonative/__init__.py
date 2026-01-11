@@ -5,7 +5,7 @@ import sh
 import os
 
 class VideoNativeRecipe(Recipe):
-    name = 'libvideo'
+    #name = 'libvideo'
     version = '0.1'
     src_filename = 'libvideo.c'
     # We compile a single C file into a shared library
