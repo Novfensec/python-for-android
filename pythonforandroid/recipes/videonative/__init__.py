@@ -51,7 +51,7 @@ class VideoNativeRecipe(Recipe):
             )
 
         # Install into libs dir so it’s packaged with the APK
-        dest_dir = self.ctx.get_libs_dir(arch)
+        dest_dir = self.ctx.get_libs_dir(arch.arch)
         os.makedirs(dest_dir, exist_ok=True)
         shprint(sh.cp, out, dest_dir)
 
