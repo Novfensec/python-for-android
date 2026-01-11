@@ -15,7 +15,7 @@ class VideoNativeRecipe(Recipe):
     def get_recipe_env(self, arch):
         env = super().get_recipe_env(arch)
         # Include and lib paths from the ffmpeg recipe
-        ffmpeg_recipe = self.get_recipe('ffmpeg')
+        ffmpeg_recipe = self.get_recipe('ffmpeg', self.ctx)
         ffmpeg_build_dir = ffmpeg_recipe.get_build_dir(arch)
         ffmpeg_lib_dir = os.path.join(ffmpeg_build_dir, 'lib')
         ffmpeg_inc_dir = os.path.join(ffmpeg_build_dir, 'include')
