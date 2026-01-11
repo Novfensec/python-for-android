@@ -38,7 +38,7 @@ class VideoNativeRecipe(Recipe):
         out = os.path.join(build_dir, 'libvideo.so')
 
         env = self.get_recipe_env(arch)
-        cc = sh.Command(env["CC"])
+        cc = sh.Command(arch.get_clang_exe(with_target=True))
 
         with current_directory(build_dir):
             shprint(cc,
