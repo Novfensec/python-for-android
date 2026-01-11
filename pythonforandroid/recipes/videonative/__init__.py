@@ -34,7 +34,8 @@ class VideoNativeRecipe(Recipe):
     def build_arch(self, arch):
         # Compile libvideo.c into libvideo.so
         build_dir = self.get_build_dir(arch)
-        src = os.path.join(build_dir, 'libvideo.c')
+        os.makedirs(build_dir, exist_ok=True)
+        src = os.path.join(self.get_recipe_dir(), 'libvideo.c')
         out = os.path.join(build_dir, 'libvideo.so')
 
         env = self.get_recipe_env(arch)
@@ -44,11 +45,12 @@ class VideoNativeRecipe(Recipe):
             shprint(cc,
                     '-o', out,
                     src,
-                    env['CFLAGS'],
-                    env['LDFLAGS'] + env['LIBS'])
+                    *env['CFLAGS'].split(),
+                    *env['LDFLAGS'].split + *env['LIBS'].split())
 
         # Install into libs dir so it’s packaged with the APK
         dest_dir = self.ctx.get_libs_dir(arch)
+        os.makedirs(dest_dir, exist_ok=True)
         shprint(sh.cp, out, dest_dir)
 
 recipe = VideoNativeRecipe()
