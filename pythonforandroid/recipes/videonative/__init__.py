@@ -8,8 +8,8 @@ class VideoNativeRecipe(PyProjectRecipe):
     hostpython_prerequisites = ['scikit-build-core', 'pybind11', 'cmake', 'ninja']
     depends = ['python3', 'ffmpeg']
 
-    def get_recipe_env(self, arch):
-        env = super().get_recipe_env(arch)
+    def get_recipe_env(self, arch, **kwargs):
+        env = super().get_recipe_env(arch,  **kwargs)
         ffmpeg_recipe = self.get_recipe('ffmpeg', self.ctx)
         ffmpeg_build_dir = ffmpeg_recipe.get_build_dir(arch.arch)
 
