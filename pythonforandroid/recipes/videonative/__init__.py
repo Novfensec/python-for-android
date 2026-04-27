@@ -6,6 +6,7 @@ class VideoNativeRecipe(PyProjectRecipe):
     url = 'https://github.com/Novfensec/VideoNative/archive/main.zip'
     name = 'videonative'
     site_packages_name = 'videonative'
+    
     hostpython_prerequisites = ['scikit-build-core', 'pybind11', 'cmake', 'ninja']
     depends = ['python3', 'ffmpeg']
 
@@ -29,6 +30,7 @@ class VideoNativeRecipe(PyProjectRecipe):
             f"-DANDROID_PLATFORM=android-{self.ctx.ndk_api};"
             f"-DANDROID_FFMPEG_INCLUDE={join(ffmpeg_build_dir, 'include')};"
             f"-DANDROID_FFMPEG_LIB={join(ffmpeg_build_dir, 'lib')};"
+            f"-DPython_EXECUTABLE={self.ctx.hostpython};"
             f"-DPython_INCLUDE_DIR={py_include_dir};"
             f"-DPython_LIBRARY={py_lib_file};"
         )
