@@ -20,7 +20,8 @@ class VideoNativeRecipe(PyProjectRecipe):
         python_recipe = self.get_recipe('python3', self.ctx)
         py_include_dir = python_recipe.include_root(arch.arch)
         py_lib_file = join(
-            python_recipe.get_build_dir(arch.arch),
+            python_recipe.get_build_dir(arch.arch), 
+            "android-build",
             f"libpython{python_recipe.major_minor_version_string}.so"
         )
 
