@@ -12,7 +12,8 @@ class VideoNativeRecipe(PyProjectRecipe):
         env = super().get_recipe_env(arch, **kwargs)
         ffmpeg_recipe = self.get_recipe('ffmpeg', self.ctx)
         ffmpeg_build_dir = ffmpeg_recipe.get_build_dir(arch.arch)
-
+        
+        env['SKBUILD_STRICT_CONFIG'] = 'false'
         env['SKBUILD_CMAKE_ARGS'] = (
             f"-DANDROID_FFMPEG_INCLUDE={ffmpeg_build_dir}/include"
             f"-DANDROID_FFMPEG_LIB={ffmpeg_build_dir}/lib"
