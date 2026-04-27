@@ -15,7 +15,8 @@ class VideoNativeRecipe(PyProjectRecipe):
         
         env['SKBUILD_STRICT_CONFIG'] = 'false'
         env['SKBUILD_CMAKE_ARGS'] = (
-            f"-DANDROID_FFMPEG_INCLUDE={ffmpeg_build_dir}/include"
+            "-DCMAKE_SYSTEM_NAME=Android "
+            f"-DANDROID_FFMPEG_INCLUDE={ffmpeg_build_dir}/include "
             f"-DANDROID_FFMPEG_LIB={ffmpeg_build_dir}/lib"
         )
 
