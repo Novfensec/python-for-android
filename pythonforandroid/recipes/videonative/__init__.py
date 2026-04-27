@@ -1,8 +1,7 @@
-from os.path import join
 from pythonforandroid.recipe import PyProjectRecipe
+from os.path import join
 
 class VideoNativeRecipe(PyProjectRecipe):
-
     version = '1.0.0'
     url = 'https://github.com/Novfensec/VideoNative/archive/main.zip'
     name = 'videonative'
@@ -16,6 +15,10 @@ class VideoNativeRecipe(PyProjectRecipe):
         ffmpeg_recipe = self.get_recipe('ffmpeg', self.ctx)
         ffmpeg_build_dir = ffmpeg_recipe.get_build_dir(arch.arch)
 
+        python_recipe = self.get_recipe('python3', self.ctx)
+        py_include_dir = python_recipe.include_root(arch.arch)
+        py_lib_file = join(self.ctx.get_libs_dir(arch.arch), f"libpython{python_recipe.major_minor_version_string}.so")
+
         env['SKBUILD_STRICT_CONFIG'] = 'false'
 
         toolchain_file = join(self.ctx.ndk_dir, 'build', 'cmake', 'android.toolchain.cmake')
@@ -26,6 +29,8 @@ class VideoNativeRecipe(PyProjectRecipe):
             f"-DANDROID_PLATFORM=android-{self.ctx.ndk_api};"
             f"-DANDROID_FFMPEG_INCLUDE={join(ffmpeg_build_dir, 'include')};"
             f"-DANDROID_FFMPEG_LIB={join(ffmpeg_build_dir, 'lib')};"
+            f"-DPython_INCLUDE_DIR={py_include_dir};"
+            f"-DPython_LIBRARY={py_lib_file};"
         )
 
         return env
