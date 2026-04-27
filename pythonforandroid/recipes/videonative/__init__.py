@@ -9,7 +9,7 @@ class VideoNativeRecipe(PyProjectRecipe):
     depends = ['python3', 'ffmpeg']
 
     def get_recipe_env(self, arch, **kwargs):
-        env = super().get_recipe_env(arch,  **kwargs)
+        env = super().get_recipe_env(arch, **kwargs)
         ffmpeg_recipe = self.get_recipe('ffmpeg', self.ctx)
         ffmpeg_build_dir = ffmpeg_recipe.get_build_dir(arch.arch)
 
