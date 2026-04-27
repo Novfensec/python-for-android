@@ -1,13 +1,14 @@
 from pythonforandroid.recipe import PyProjectRecipe
 from os.path import join
 
+
 class VideoNativeRecipe(PyProjectRecipe):
     version = '1.0.0'
     url = 'https://github.com/Novfensec/VideoNative/archive/main.zip'
     name = 'videonative'
     site_packages_name = 'videonative'
 
-    hostpython_prerequisites = ['scikit-build-core', 'pybind11', 'cmake', 'ninja']
+    hostpython_prerequisites = ['scikit-build-core', 'pybind11']
     depends = ['python3', 'ffmpeg']
 
     def get_recipe_env(self, arch, **kwargs):
@@ -18,16 +19,16 @@ class VideoNativeRecipe(PyProjectRecipe):
 
         python_recipe = self.get_recipe('python3', self.ctx)
         py_include_dir = python_recipe.include_root(arch.arch)
-
-        py_install_dir = self.ctx.get_python_install_dir(arch.arch)
         py_lib_file = join(
-            py_install_dir, 'lib', f"libpython{python_recipe.major_minor_version_string}.so"
+            python_recipe.get_build_dir(arch.arch),
+            f"libpython{python_recipe.major_minor_version_string}.so"
+        )
+
+        toolchain_file = join(
+            self.ctx.ndk_dir, 'build', 'cmake', 'android.toolchain.cmake'
         )
 
         env['SKBUILD_STRICT_CONFIG'] = 'false'
-
-        toolchain_file = join(self.ctx.ndk_dir, 'build', 'cmake', 'android.toolchain.cmake')
-
         env['SKBUILD_CMAKE_ARGS'] = (
             f"-DCMAKE_TOOLCHAIN_FILE={toolchain_file};"
             f"-DANDROID_ABI={arch.arch};"
@@ -40,5 +41,6 @@ class VideoNativeRecipe(PyProjectRecipe):
         )
 
         return env
+
 
 recipe = VideoNativeRecipe()
