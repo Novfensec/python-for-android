@@ -6,7 +6,7 @@ class VideoNativeRecipe(PyProjectRecipe):
     url = 'https://github.com/Novfensec/VideoNative/archive/main.zip'
     name = 'videonative'
     site_packages_name = 'videonative'
-    
+
     hostpython_prerequisites = ['scikit-build-core', 'pybind11', 'cmake', 'ninja']
     depends = ['python3', 'ffmpeg']
 
@@ -18,7 +18,11 @@ class VideoNativeRecipe(PyProjectRecipe):
 
         python_recipe = self.get_recipe('python3', self.ctx)
         py_include_dir = python_recipe.include_root(arch.arch)
-        py_lib_file = join(self.ctx.get_libs_dir(arch.arch), f"libpython{python_recipe.major_minor_version_string}.so")
+
+        py_install_dir = self.ctx.get_python_install_dir(arch.arch)
+        py_lib_file = join(
+            py_install_dir, 'lib', f"libpython{python_recipe.major_minor_version_string}.so"
+        )
 
         env['SKBUILD_STRICT_CONFIG'] = 'false'
 
