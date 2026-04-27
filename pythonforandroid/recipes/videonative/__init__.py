@@ -1,5 +1,5 @@
+from os.path import join
 from pythonforandroid.recipe import PyProjectRecipe
-from pythonforandroid.util import join_path
 
 class VideoNativeRecipe(PyProjectRecipe):
 
@@ -18,14 +18,14 @@ class VideoNativeRecipe(PyProjectRecipe):
 
         env['SKBUILD_STRICT_CONFIG'] = 'false'
 
-        toolchain_file = join_path(self.ctx.ndk_dir, 'build', 'cmake', 'android.toolchain.cmake')
+        toolchain_file = join(self.ctx.ndk_dir, 'build', 'cmake', 'android.toolchain.cmake')
 
         env['SKBUILD_CMAKE_ARGS'] = (
             f"-DCMAKE_TOOLCHAIN_FILE={toolchain_file};"
             f"-DANDROID_ABI={arch.arch};"
             f"-DANDROID_PLATFORM=android-{self.ctx.ndk_api};"
-            f"-DANDROID_FFMPEG_INCLUDE={join_path(ffmpeg_build_dir, 'include')};"
-            f"-DANDROID_FFMPEG_LIB={join_path(ffmpeg_build_dir, 'lib')};"
+            f"-DANDROID_FFMPEG_INCLUDE={join(ffmpeg_build_dir, 'include')};"
+            f"-DANDROID_FFMPEG_LIB={join(ffmpeg_build_dir, 'lib')};"
         )
 
         return env
