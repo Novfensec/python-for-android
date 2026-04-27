@@ -1,9 +1,9 @@
 from pythonforandroid.recipe import PyProjectRecipe
 
 
-class VideonativeRecipe(PyProjectRecipe):
+class VideoNativeRecipe(PyProjectRecipe):
     version = '1.0.0'
-    url = 'https://github.com/Novfensec/videonative/archive/main.zip'
+    url = 'https://github.com/Novfensec/VideoNative/archive/main.zip'
     name = 'videonative'
     hostpython_prerequisites = ['scikit-build-core', 'pybind11', 'cmake', 'ninja']
     depends = ['python3', 'ffmpeg']
@@ -20,4 +20,4 @@ class VideonativeRecipe(PyProjectRecipe):
 
         return env
 
-recipe = VideonativeRecipe()
+recipe = VideoNativeRecipe()
