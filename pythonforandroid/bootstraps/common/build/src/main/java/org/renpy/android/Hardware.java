@@ -34,7 +34,11 @@ public class Hardware {
     // The context.
     public static Context context;
     public static View view;
-    public static final float defaultRv[] = {0f, 0f, 0f};
+    public static final float defaultRv[] = {
+        0 f,
+        0 f,
+        0 f
+    };
 
     private static Context getContext() {
         if (context != null) return context;
@@ -52,10 +56,10 @@ public class Hardware {
         if (v != null) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 v.vibrate(
-                        VibrationEffect.createOneShot(
-                                (long) (1000 * s), VibrationEffect.DEFAULT_AMPLITUDE));
+                    VibrationEffect.createOneShot(
+                        (long)(1000 * s), VibrationEffect.DEFAULT_AMPLITUDE));
             } else {
-                v.vibrate((long) (1000 * s));
+                v.vibrate((long)(1000 * s));
             }
         }
     }
@@ -63,20 +67,20 @@ public class Hardware {
     /** Get an Overview of all Hardware Sensors of an Android Device */
     public static String getHardwareSensors() {
         SensorManager sm = (SensorManager) getContext().getSystemService(Context.SENSOR_SERVICE);
-        List<Sensor> allSensors = sm.getSensorList(Sensor.TYPE_ALL);
+        List < Sensor > allSensors = sm.getSensorList(Sensor.TYPE_ALL);
 
         if (allSensors != null) {
             StringBuilder resultString = new StringBuilder();
-            for (Sensor s : allSensors) {
+            for (Sensor s: allSensors) {
                 resultString.append(
-                        String.format(
-                                "Name=%s,Vendor=%s,Version=%d,MaximumRange=%f,Power=%f,Type=%d\n",
-                                s.getName(),
-                                s.getVendor(),
-                                s.getVersion(),
-                                s.getMaximumRange(),
-                                s.getPower(),
-                                s.getType()));
+                    String.format(
+                        "Name=%s,Vendor=%s,Version=%d,MaximumRange=%f,Power=%f,Type=%d\n",
+                        s.getName(),
+                        s.getVendor(),
+                        s.getVersion(),
+                        s.getMaximumRange(),
+                        s.getPower(),
+                        s.getType()));
             }
             // XXX MinDelay is not in the 2.2
             // resultString.append(String.format(",MinDelay=" + s.getMinDelay()));
@@ -200,41 +204,41 @@ public class Hardware {
     /** Hide the soft keyboard. */
     public static void hideKeyboard() {
         InputMethodManager imm =
-                (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm != null) {
             imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
         }
     }
 
     /** Scan WiFi networks */
-    static List<ScanResult> latestResult;
+    static List < ScanResult > latestResult;
 
     public static void enableWifiScanner() {
         IntentFilter i = new IntentFilter();
         i.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
 
         getContext()
-                .registerReceiver(
-                        new BroadcastReceiver() {
+            .registerReceiver(
+                new BroadcastReceiver() {
 
-                            @Override
-                            public void onReceive(Context c, Intent i) {
-                                // Code to execute when SCAN_RESULTS_AVAILABLE_ACTION event occurs
-                                try {
-                                    WifiManager w =
-                                            (WifiManager)
-                                                    c.getApplicationContext()
-                                                            .getSystemService(Context.WIFI_SERVICE);
-                                    if (w != null) {
-                                        latestResult = w.getScanResults(); // Returns a <list> of
-                                        // scanResults
-                                    }
-                                } catch (SecurityException e) {
-                                    // Modern Android requires ACCESS_FINE_LOCATION to scan WiFi
-                                }
+                    @Override
+                    public void onReceive(Context c, Intent i) {
+                        // Code to execute when SCAN_RESULTS_AVAILABLE_ACTION event occurs
+                        try {
+                            WifiManager w =
+                                (WifiManager)
+                            c.getApplicationContext()
+                                .getSystemService(Context.WIFI_SERVICE);
+                            if (w != null) {
+                                latestResult = w.getScanResults(); // Returns a <list> of
+                                // scanResults
                             }
-                        },
-                        i);
+                        } catch (SecurityException e) {
+                            // Modern Android requires ACCESS_FINE_LOCATION to scan WiFi
+                        }
+                    }
+                },
+                i);
     }
 
     public static String scanWifi() {
@@ -244,9 +248,9 @@ public class Hardware {
         if (latestResult != null) {
 
             StringBuilder latestResultString = new StringBuilder();
-            for (ScanResult result : latestResult) {
+            for (ScanResult result: latestResult) {
                 latestResultString.append(
-                        String.format("%s\t%s\t%d\n", result.SSID, result.BSSID, result.level));
+                    String.format("%s\t%s\t%d\n", result.SSID, result.BSSID, result.level));
             }
 
             return latestResultString.toString();
@@ -266,17 +270,17 @@ public class Hardware {
      */
     public static boolean checkNetwork() {
         final ConnectivityManager conMgr =
-                (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+            (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         if (conMgr == null) return false;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             Network network = conMgr.getActiveNetwork();
             if (network == null) return false;
             NetworkCapabilities capabilities = conMgr.getNetworkCapabilities(network);
-            return capabilities != null
-                    && (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
-                            || capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)
-                            || capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET));
+            return capabilities != null &&
+                (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
+                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET));
         } else {
             final NetworkInfo activeNetwork = conMgr.getActiveNetworkInfo();
             return activeNetwork != null && activeNetwork.isConnected();
@@ -288,33 +292,33 @@ public class Hardware {
         network_state = checkNetwork();
 
         ConnectivityManager conMgr =
-                (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+            (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         if (conMgr == null) return;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             conMgr.registerDefaultNetworkCallback(
-                    new ConnectivityManager.NetworkCallback() {
-                        @Override
-                        public void onAvailable(Network network) {
-                            network_state = true;
-                        }
+                new ConnectivityManager.NetworkCallback() {
+                    @Override
+                    public void onAvailable(Network network) {
+                        network_state = true;
+                    }
 
-                        @Override
-                        public void onLost(Network network) {
-                            network_state = false;
-                        }
-                    });
+                    @Override
+                    public void onLost(Network network) {
+                        network_state = false;
+                    }
+                });
         } else {
             IntentFilter i = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
             getContext()
-                    .registerReceiver(
-                            new BroadcastReceiver() {
-                                @Override
-                                public void onReceive(Context c, Intent i) {
-                                    network_state = checkNetwork();
-                                }
-                            },
-                            i);
+                .registerReceiver(
+                    new BroadcastReceiver() {
+                        @Override
+                        public void onReceive(Context c, Intent i) {
+                            network_state = checkNetwork();
+                        }
+                    },
+                    i);
         }
     }
 }
